@@ -1,5 +1,5 @@
-import React, {useState} from 'react'
-import {fade, makeStyles} from '@material-ui/core/styles'
+import React, { useState } from 'react'
+import { fade, makeStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import InputBase from '@material-ui/core/InputBase'
@@ -10,7 +10,7 @@ import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordO
 import ListIcon from '@material-ui/icons/List'
 import BorderAllIcon from '@material-ui/icons/BorderAll'
 import RefreshIcon from '@material-ui/icons/Refresh'
-import {useTheme} from './ThemeContext'
+import { useTheme } from './ThemeContext'
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -72,6 +72,7 @@ export default props => {
         <Toolbar>
           <div className={classes.search}>
             <InputBase
+              value={props.filter}
               onChange={e => {
                 props.searchHandler(e.target.value)
               }}
@@ -80,7 +81,7 @@ export default props => {
                 root: classes.inputRoot,
                 input: classes.inputInput
               }}
-              inputProps={{'aria-label': 'search'}}
+              inputProps={{ 'aria-label': 'search' }}
             />
           </div>
 
@@ -92,7 +93,7 @@ export default props => {
                 root: classes.inputRoot,
                 input: classes.inputInput
               }}
-              inputProps={{'aria-label': 'search'}}
+              inputProps={{ 'aria-label': 'search' }}
             />
           </div>
 
@@ -134,7 +135,10 @@ export default props => {
           <div className={classes.marginLeft}>
             <RefreshIcon
               fontSize="small"
-              onClick={() => props.resetHandler()}
+              onClick={() => {
+                props.resetHandler()
+                themeState.reset()
+              }}
             />
           </div>
         </Toolbar>

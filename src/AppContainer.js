@@ -1,11 +1,11 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import GoogleFontLoader from 'react-google-font-loader'
 import Card from './Card'
 import Grid from '@material-ui/core/Grid'
 import ToolBar from './ToolBar'
 
-import {makeStyles} from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles(theme => ({
   appContainer: {
@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
 
 export default () => {
   const classes = useStyles()
-  const [state, setState] = useState({fonts: [], amount: 100, filter: ''})
+  const [state, setState] = useState({ fonts: [], amount: 100, filter: '' })
 
   const [input, setInput] = useState('') //for receiving input from toolbar
   const [size, setSize] = useState() //for receiving size from toolbar
@@ -46,12 +46,14 @@ export default () => {
         'https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyAmOD13ssjwWQ0qhvyHCUruhuhVKmQtF_8'
       )
       .then(res => {
-        setState({
-          ...state,
-          fonts: res.data.items
-        })
+        if (state.fonts.length < 1) {
+          setState({
+            ...state,
+            fonts: res.data.items
+          })
+        }
       })
-  }, [])
+  })
 
   const GoogleLorader = () => {
     if (state.fonts.length < 1) {
@@ -64,6 +66,7 @@ export default () => {
       ) {
         return font
       }
+      return false
     })
 
     const resultFonts =
@@ -95,10 +98,10 @@ export default () => {
   }
 
   const searchHandler = value => {
-    setState({...state, filter: value})
+    setState({ ...state, filter: value })
   }
   const resetHandler = () => {
-    setState({...state, filter: ''})
+    setState({ ...state, filter: '' })
   }
 
   return (
@@ -109,9 +112,15 @@ export default () => {
           getSize={getSize}
           searchHandler={searchHandler}
           resetHandler={resetHandler}
+          filter={state.filter}
         />
 
-        <Grid container direction="row" spacing={1} style={{marginTop:'35px'}}>
+        <Grid
+          container
+          direction="row"
+          spacing={1}
+          style={{ marginTop: '35px' }}
+        >
           {GoogleLorader()}
         </Grid>
       </div>

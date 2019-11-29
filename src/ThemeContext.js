@@ -1,29 +1,34 @@
 import React from 'react'
-import {ThemeProvider as EmotionThemeProvider} from 'emotion-theming'
+import { ThemeProvider as EmotionThemeProvider } from 'emotion-theming'
 import theme from './theme.js'
 
 const defaultContextData = {
   dark: false,
-  toggle: () => {}
+  toggle: () => {},
+  reset: () => {}
 }
 
 const ThemeContext = React.createContext(defaultContextData)
 const useTheme = () => React.useContext(ThemeContext)
 
+const defaultThemeState = {
+  dark: false,
+  hasThemeMounted: false
+}
+
 const useEffectDarkMode = () => {
-  const [themeState, setThemeState] = React.useState({
-    dark: false,
-    hasThemeMounted: false
-  })
+  const [themeState, setThemeState] = React.useState({ ...defaultThemeState })
   React.useEffect(() => {
-    const lsDark = localStorage.getItem('dark') === 'true'
-    setThemeState({...themeState, dark: lsDark, hasThemeMounted: true})
-  }, [])
+    if (!themeState.hasThemeMounted) {
+      const lsDark = localStorage.getItem('dark') === 'true'
+      setThemeState({ ...themeState, dark: lsDark, hasThemeMounted: true })
+    }
+  }, [themeState])
 
   return [themeState, setThemeState]
 }
 
-const ThemeProvider = ({children}) => {
+const ThemeProvider = ({ children }) => {
   const [themeState, setThemeState] = useEffectDarkMode()
 
   if (!themeState.hasThemeMounted) {
@@ -33,7 +38,13 @@ const ThemeProvider = ({children}) => {
   const toggle = () => {
     const dark = !themeState.dark
     localStorage.setItem('dark', JSON.stringify(dark))
-    setThemeState({...themeState, dark})
+    setThemeState({ ...themeState, dark })
+  }
+
+  const reset = () => {
+    const dark = false
+    localStorage.setItem('dark', JSON.stringify(dark))
+    setThemeState({ ...themeState, dark })
   }
 
   const computedTheme = themeState.dark ? theme('dark') : theme('light')
@@ -43,7 +54,8 @@ const ThemeProvider = ({children}) => {
       <ThemeContext.Provider
         value={{
           dark: themeState.dark,
-          toggle
+          toggle,
+          reset
         }}
       >
         {children}
@@ -52,4 +64,4 @@ const ThemeProvider = ({children}) => {
   )
 }
 
-export {ThemeProvider, useTheme}
+export { ThemeProvider, useTheme }

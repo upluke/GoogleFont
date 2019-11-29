@@ -3,7 +3,7 @@ import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
-import {makeStyles} from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline'
 export default props => {
   const myFont = props.myFont
@@ -34,7 +34,7 @@ export default props => {
   const classes = useStyles()
 
   return (
-    <Grid item xs={3}>
+    <Grid item lg={2} md={4} sm={6} xs={12}>
       <Card className={classes.card}>
         <CardContent>
           <div className={classes.cardDivider} />
