@@ -42,9 +42,7 @@ const ThemeProvider = ({ children }) => {
   }
 
   const reset = () => {
-    const dark = false
-    localStorage.setItem('dark', JSON.stringify(dark))
-    setThemeState({ ...themeState, dark })
+
   }
 
   const computedTheme = themeState.dark ? theme('dark') : theme('light')

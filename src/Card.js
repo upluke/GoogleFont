@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline'
+
 export default props => {
   const myFont = props.myFont
   const useStyles = makeStyles(theme => ({
@@ -12,7 +13,8 @@ export default props => {
       fontFamily: `${myFont}`
     },
     subFontControl: {
-      fontSize: `${props.size}px`
+      fontSize: `${props.size}px`,
+      fontFamily:`${myFont}`
     },
     card: {
       minHeight: '15rem',

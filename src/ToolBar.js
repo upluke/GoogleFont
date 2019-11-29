@@ -87,6 +87,7 @@ export default props => {
 
           <div>
             <InputBase
+              value={input}
               onChange={e => setInput(e.target.value)}
               placeholder="Type something...."
               classes={{
