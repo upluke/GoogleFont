@@ -83,7 +83,7 @@ export default () => {
             ]}
             subsets={[`${f.subsets}`]}
           />
-          {/* <p style={{fontFamily: `${f.family}`}}>This is dynamic</p> */}
+        
 
           <Card
             key={`${f.family}`}
@@ -100,9 +100,7 @@ export default () => {
   const searchHandler = value => {
     setState({ ...state, filter: value })
   }
-  const resetHandler = () => {
-    setState({ ...state, filter: '' })
-  }
+
 
   return (
     <div className={classes.appContainer}>
@@ -111,7 +109,7 @@ export default () => {
           getInput={getInput}
           getSize={getSize}
           searchHandler={searchHandler}
-          resetHandler={resetHandler}
+         
           filter={state.filter}
         />
 

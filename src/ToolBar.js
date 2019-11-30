@@ -66,6 +66,11 @@ export default props => {
   props.getInput(input) //pass input up to contianer
   props.getSize(size) //pass size up to container
 
+  const resetHandler=()=>{  //clean out 1st,2nd input and lights
+    props.searchHandler('')  
+    themeState.reset()
+    setInput('')
+  }
   return (
     <div className={classes.grow}>
       <AppBar position="static" color="default" className={classes.appBar}>
@@ -136,10 +141,7 @@ export default props => {
           <div className={classes.marginLeft}>
             <RefreshIcon
               fontSize="small"
-              onClick={() => {
-                props.resetHandler()
-                themeState.reset()
-              }}
+              onClick={()=>resetHandler()}
             />
           </div>
         </Toolbar>

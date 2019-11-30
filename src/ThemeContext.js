@@ -40,11 +40,12 @@ const ThemeProvider = ({ children }) => {
     localStorage.setItem('dark', JSON.stringify(dark))
     setThemeState({ ...themeState, dark })
   }
-// after commenting, it still works
+
   const reset = () => { 
-    // const dark = !themeState.dark
-    // localStorage.setItem('dark', JSON.stringify(dark))
-    // setThemeState({ ...themeState, dark })
+    const dark = !themeState.dark
+    localStorage.setItem('dark', JSON.stringify(dark))
+    setThemeState({ ...themeState, dark })
+
   }
 
   const computedTheme = themeState.dark ? theme('dark') : theme('light')
